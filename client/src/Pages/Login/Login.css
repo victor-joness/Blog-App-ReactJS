@@ -1,0 +1,57 @@
+:root{
+    --light-green: #b9e7e7;
+}
+
+.auth{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--light-green);
+}
+
+h1{
+    font-size: 40px;
+    color: teal;
+    margin-bottom: 20px;
+}
+
+p{
+    font-size: 15px;
+    color: red;
+    text-align: center;
+}
+
+span{
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: white;
+    width: 300px;
+    gap: 15px;
+}
+
+form input{
+    font-size: 20px;
+    height: 30px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+form input::placeholder{
+    font-size: 15px;
+}
+
+form button{
+    padding: 10px;
+    border: none;
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+}
