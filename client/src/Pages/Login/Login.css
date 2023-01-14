@@ -8,26 +8,28 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 1920px;
+    margin-left: -450px;
     background-color: var(--light-green);
 }
 
-h1{
+.auth h1{
     font-size: 40px;
     color: teal;
     margin-bottom: 20px;
 }
 
-p{
+.auth form p{
     font-size: 15px;
     color: red;
     text-align: center;
 }
 
-span{
+.auth form span{
     text-align: center;
 }
 
-form{
+.auth form{
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -36,7 +38,7 @@ form{
     gap: 15px;
 }
 
-form input{
+.auth form input{
     font-size: 20px;
     height: 30px;
     padding: 10px;
@@ -44,11 +46,11 @@ form input{
     border-bottom: 1px solid grey;
 }
 
-form input::placeholder{
+.auth form input::placeholder{
     font-size: 15px;
 }
 
-form button{
+.auth form button{
     padding: 10px;
     border: none;
     background-color: teal;
