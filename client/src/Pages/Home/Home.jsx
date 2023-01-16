@@ -1,10 +1,33 @@
-import React from "react";
-import {Link} from "react-router-dom"
+import React, { useState } from "react";
+import {Link, useLocation} from "react-router-dom"
+import axios from "axios"
 
 import "./Home.css"
+import { useEffect } from "react";
 
 const Home = () => {
-  const posts = [
+  const [posts, setPosts] = useState([]);
+
+  //me retorna a url, e a partir da url eu consigo saber qual categoria o usuario quer que seja filtrado
+  const cat = useLocation().search;
+
+  //useEffect que é para execulta cada vez que for renderizado, então toda vez que for renderizado ele vai fazer a requisção no endpoint /posts,
+  //como são varios posts eles tem que ficar armazenado em array para ai sim eu renderizar com o .map do react, então meu estado de posts por padrao é um array
+  //então temos que pegar a requisição e transformar em array, fazemos isso com res.data onde data é um array com nossos posts, a cada vez que é renderizado o home page
+  //ele pega o setPosts e atualiza, fazemos isso criando uma funcao somento no useEffect e chamando ela uma vez.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const res = await axios.get(`/posts/${cat}`);
+          setPosts(res.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  },[cat]);
+
+  /* const posts = [
     {
       id: 1,
       title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
@@ -29,7 +52,7 @@ const Home = () => {
       desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
       img: "https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
-  ];
+  ]; */
 
   return (
     <div className="home">
