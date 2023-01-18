@@ -1,16 +1,68 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+import moment from "moment";
 
 import "./Write.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Write = () => {
-  const [value, setValue] = useState("");
-  console.log(value);
+  const state = useLocation().state;
+
+  const navigate = useNavigate();
+
+  const [value, setValue] = useState(state?.title || "");
+  const [title, setTitle] = useState(state?.desc || "");
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState(state?.cat || "");
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await axios.post("upload", formData);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const imgUrl = await upload();
+    //no nosso try catch vamos ter 2 casos, no try vamos ter o caso de o usuario fazer a postagem que é o segundo caso, ou quando ele for editar, que é o segundo caso
+    //por isso que no primerio a gente usa o metodo put na requisição da api, e no segundo caso o metodo post.
+    //ja o catch é pra se alguma coisa der errada.
+    try {
+      state
+        ? await axios.put(`/posts/${state.id}`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+          })
+        : await axios.post(`/posts/`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+          });
+          navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="add">
       <div className="content">
-        <input type="text" placeholder="Title" />
+        <input
+          type="text"
+          placeholder="Title"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <div className="editorContainer">
           <ReactQuill
             className="editor"
@@ -34,39 +86,82 @@ const Write = () => {
             type="file"
             id="file"
             accept="image/png, image/jpeg"
+            onChange={(e) => setFile(e.target.files[0])}
           />
           <label className="file" htmlFor="file">
             Upload Image
           </label>
           <div className="buttons">
             <button>Save as a Draft</button>
-            <button>Update</button>
+            <button onClick={handleSubmit}>Publish</button>
           </div>
         </div>
         <div className="item">
           <h1>Category</h1>
           <div className="cat">
-            <input type="radio" name="cat" value="art" id="art" />
+            <input
+              type="radio"
+              checked={cat === "art"}
+              name="cat"
+              value="art"
+              id="art"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="art">Art</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="science" id="science" />
+            <input
+              type="radio"
+              checked={cat === "science"}
+              name="cat"
+              value="science"
+              id="science"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="science">Sciencie</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="technology" id="technology" />
+            <input
+              type="radio"
+              checked={cat === "technology"}
+              name="cat"
+              value="technology"
+              id="technology"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="technology">Technology</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="cinema" id="cinema" />
+            <input
+              type="radio"
+              checked={cat === "cinema"}
+              name="cat"
+              value="cinema"
+              id="cinema"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="cinema">Cinema</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="design" id="design" />
+            <input
+              type="radio"
+              checked={cat === "design"}
+              name="cat"
+              value="design"
+              id="design"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="design">Design</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="food" id="food" />
+            <input
+              type="radio"
+              checked={cat === "food"}
+              name="cat"
+              value="food"
+              id="food"
+              onChange={(e) => setCat(e.target.value)}
+            />
             <label htmlFor="food">Food</label>
           </div>
         </div>
