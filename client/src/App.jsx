@@ -1,17 +1,18 @@
-import {Outlet, Route, RouterProvider, createBrowserRouter} from "react-router-dom"
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import Register from "./Pages/Register/Register";
+import Login from "./Pages/Login/Login";
+import Write from "./Pages/Write/Write";
+import Home from "./Pages/Home/Home";
+import Single from "./Pages/Single/Single";
+import Navbar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
+import "./App.css"
 
-//import pages
-import Login from "./Pages/Login/Login"
-import Home from "./Pages/Home/Home"
-import Register from "./Pages/Register/Register"
-import Write from "./Pages/Write/Write"
-import Single from "./Pages/Single/Single"
-
-//import componentes
-import Footer from "./Components/Footer/Footer"
-import Navbar from "./Components/Navbar/Navbar"
-
-//quando vamos ter o mesmo componentes para varias pages, podemos passar eles diretamente no element ou criar um layout, ou puxar diretamente na pagina que vamos usar
 const Layout = () => {
   return (
     <>
@@ -22,7 +23,6 @@ const Layout = () => {
   );
 };
 
-//sistema de rotas
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,11 +52,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-//function app return
 function App() {
   return (
-    <div>
-      <RouterProvider router={router}/>
+    <div className="app">
+      <div className="container">
+        <RouterProvider router={router} />
+      </div>
     </div>
   );
 }
