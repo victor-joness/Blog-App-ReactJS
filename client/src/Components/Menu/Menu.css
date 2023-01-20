@@ -1,0 +1,50 @@
+:root{
+    --light-green: #b9e7e7;
+}
+
+.menu{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.menu h1{
+    font-size: 20px;
+    color: #555;
+}
+
+.menu .post{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu .post img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: .5rem;
+}
+
+.menu .post h2{
+    color: #555;
+}
+
+.menu .post button{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: .5rem;
+    background-color: white;
+    border: 1px solid teal;
+    color: teal;
+    font-weight: 500;
+}
+
+.menu .post button:hover{
+    border: 1px solid white;
+    background-color: var(--light-green);
+    color: black;
+}
